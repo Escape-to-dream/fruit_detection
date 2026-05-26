@@ -1,0 +1,14 @@
+metric,value
+model,yolov8s_fruits
+weights,yolov8s.pt
+best_weight,D:\fruit_detection\models\yolov8s_fruits_best.pt
+run_dir,D:\fruit_detection\runs\yolov8s_fruits\train
+epochs,20
+imgsz,640
+batch,16
+device,0
+map50,0.43736929080543846
+map50_95,0.2922861066908615
+precision,0.5492291326434469
+recall,0.4430158357745249
+fps,186.10281855080666

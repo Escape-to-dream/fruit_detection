@@ -1,0 +1,8 @@
+ultralytics==8.4.48
+opencv-python==4.13.0.92
+matplotlib==3.10.9
+pandas==2.3.3
+seaborn==0.13.2
+PyYAML==6.0.3
+tqdm==4.67.3
+rich==15.0.0

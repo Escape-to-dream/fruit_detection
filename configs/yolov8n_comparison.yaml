@@ -1,0 +1,7 @@
+# Lightweight YOLOv8 comparison model on the same dataset.
+model: yolov8n.pt
+data: data/dataset_fruits_detection/data.yaml
+epochs: 20
+imgsz: 640
+batch: 16
+pretrained: true

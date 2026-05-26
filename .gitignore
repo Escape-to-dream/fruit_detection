@@ -1,0 +1,16 @@
+# 虚拟环境（元凶！）
+venv/
+.venv/
+env/
+.env/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# 系统
+.DS_Store
+Thumbs.db

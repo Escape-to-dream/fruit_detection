@@ -1,0 +1,54 @@
+{
+  "train": {
+    "images": 7108,
+    "labels": 7108,
+    "objects": 32061,
+    "class_counts": {
+      "Watermelon": 1683,
+      "Orange": 13938,
+      "Grape": 6027,
+      "Apple": 6070,
+      "Banana": 2971,
+      "Pineapple": 1372
+    }
+  },
+  "valid": {
+    "images": 914,
+    "labels": 914,
+    "objects": 3228,
+    "class_counts": {
+      "Grape": 809,
+      "Orange": 1100,
+      "Banana": 391,
+      "Apple": 557,
+      "Watermelon": 217,
+      "Pineapple": 154
+    }
+  },
+  "test": {
+    "images": 457,
+    "labels": 457,
+    "objects": 1636,
+    "class_counts": {
+      "Watermelon": 76,
+      "Apple": 422,
+      "Orange": 511,
+      "Grape": 366,
+      "Banana": 174,
+      "Pineapple": 87
+    }
+  },
+  "total": {
+    "images": 8479,
+    "labels": 8479,
+    "objects": 36925,
+    "class_counts": {
+      "Watermelon": 1976,
+      "Orange": 15549,
+      "Grape": 7202,
+      "Apple": 7049,
+      "Banana": 3536,
+      "Pineapple": 1613
+    }
+  }
+}
