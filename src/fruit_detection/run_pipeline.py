@@ -18,8 +18,9 @@ def main() -> None:
     args = parser.parse_args()
     run(["fruit_detection.dataset_report"])
     if not args.skip_train:
-        run(["fruit_detection.train_yolo", "--name", "yolov8s_fruits", "--weights", "yolov8s.pt", "--epochs", "20", "--imgsz", "640", "--batch", "16"])
-        run(["fruit_detection.train_yolo", "--name", "yolov8n_fruits", "--weights", "yolov8n.pt", "--epochs", "20", "--imgsz", "640", "--batch", "16"])
+        run(["fruit_detection.train_yolo", "--name", "yolov8s_fruits", "--weights", "yolov8s.pt", "--epochs", "50", "--imgsz", "640", "--batch", "16"])
+        run(["fruit_detection.train_yolo", "--name", "yolov8n_fruits", "--weights", "yolov8n.pt", "--epochs", "50", "--imgsz", "640", "--batch", "16"])
+        run(["fruit_detection.train_yolo", "--name", "yolov8n-cbam_fruits", "--weights", "yolov8n-cbam", "--epochs", "50", "--imgsz", "640", "--batch", "16"])
     run(["fruit_detection.compare_models"])
     run(["fruit_detection.export_summary"])
 

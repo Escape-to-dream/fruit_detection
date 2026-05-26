@@ -63,10 +63,39 @@ def copy_report_assets(run_dir: Path, model_name: str) -> None:
             shutil.copy2(src, figures / target_name)
 
 
+def _build_cbam_model() -> YOLO:
+    """构建 YOLOv8n + CBAM 模型"""
+    import ultralytics.nn.tasks as tasks
+    from fruit_detection.cbam import CBAM
+
+    tasks.__dict__["CBAM"] = CBAM
+
+    yaml_path = root_dir() / "configs" / "yolov8n-cbam.yaml"
+    print(f"  🧩 从自定义配置构建 CBAM 模型: {yaml_path}")
+    model = YOLO(str(yaml_path))
+
+    print("  ⬇️  加载 yolov8n 预训练权重 (strict=False)...")
+    pretrained = YOLO("yolov8n.pt")
+    ckpt = pretrained.model.state_dict()
+    missing, unexpected = model.model.load_state_dict(ckpt, strict=False)
+    if missing:
+        print(f"  ⚠️  随机初始化的层 ({len(missing)}): {missing[:5]}...")
+    print("  ✅ CBAM 模型构建完成")
+    return model
+
+
 def train(args: argparse.Namespace) -> dict:
     device = select_device(args.device)
     data_yaml = args.dataset_dir / "data.yaml"
-    model = YOLO(args.weights)
+
+    # 判断是否为 CBAM 模型
+    is_cbam = "cbam" in args.weights.lower() or "cbam" in args.name.lower()
+
+    if is_cbam:
+        model = _build_cbam_model()
+    else:
+        model = YOLO(args.weights)
+
     results = model.train(
         data=str(data_yaml),
         epochs=args.epochs,
@@ -89,8 +118,12 @@ def train(args: argparse.Namespace) -> dict:
     shutil.copy2(last, models_dir / f"{args.name}_last.pt")
 
     trained = YOLO(str(best))
-    val = trained.val(data=str(data_yaml), split="test", imgsz=args.imgsz, batch=args.batch, device=device, workers=args.workers, plots=True)
+    val = trained.val(
+        data=str(data_yaml), split="test", imgsz=args.imgsz,
+        batch=args.batch, device=device, workers=args.workers, plots=True,
+    )
     fps = benchmark(trained, args.dataset_dir / "test" / "images", args.imgsz, device, args.speed_samples)
+
     pred_dir = REPORTS_DIR / "predictions"
     trained.predict(
         source=str(args.dataset_dir / "test" / "images"),
@@ -103,6 +136,7 @@ def train(args: argparse.Namespace) -> dict:
         exist_ok=True,
         max_det=50,
     )
+
     metrics_data = {
         "model": args.name,
         "weights": args.weights,
@@ -128,7 +162,7 @@ def main() -> None:
     parser.add_argument("--dataset-dir", type=Path, default=DATASET_DIR)
     parser.add_argument("--name", type=str, default="yolov8s_fruits")
     parser.add_argument("--weights", type=str, default="yolov8s.pt")
-    parser.add_argument("--epochs", type=int, default=20)
+    parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--imgsz", type=int, default=640)
     parser.add_argument("--batch", type=int, default=16)
     parser.add_argument("--workers", type=int, default=0)

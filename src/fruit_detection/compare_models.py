@@ -16,7 +16,7 @@ def load_metric(path: Path) -> dict:
 
 
 def table_image(df: pd.DataFrame, output: Path) -> None:
-    fig, ax = plt.subplots(figsize=(9.5, 2.8), dpi=180)
+    fig, ax = plt.subplots(figsize=(9.5, 3.2), dpi=180)
     ax.axis("off")
     table = ax.table(cellText=df.values, colLabels=df.columns, loc="center", cellLoc="center")
     table.auto_set_font_size(False)
@@ -51,6 +51,7 @@ def prediction_sheet(reports_dir: Path, output: Path) -> None:
     dirs = [
         ("YOLOv8s", reports_dir / "predictions" / "yolov8s_fruits_test_predictions"),
         ("YOLOv8n", reports_dir / "predictions" / "yolov8n_fruits_test_predictions"),
+        ("YOLOv8n-CBAM", reports_dir / "predictions" / "yolov8n-cbam_fruits_test_predictions"),
     ]
     font = ImageFont.load_default()
     rows = []
@@ -79,7 +80,7 @@ def prediction_sheet(reports_dir: Path, output: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build metric tables and model comparison screenshots.")
     parser.add_argument("--reports-dir", type=Path, default=REPORTS_DIR)
-    parser.add_argument("--models", nargs="+", default=["yolov8s_fruits", "yolov8n_fruits"])
+    parser.add_argument("--models", nargs="+", default=["yolov8s_fruits", "yolov8n_fruits", "yolov8n-cbam_fruits"])
     args = parser.parse_args()
     metrics_dir = ensure_dir(args.reports_dir / "metrics")
     figures = ensure_dir(args.reports_dir / "figures")

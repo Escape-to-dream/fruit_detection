@@ -1,8 +1,8 @@
 task: detect
 mode: train
 model: yolov8s.pt
-data: D:\fruit_detection\data\dataset_fruits_detection\data.yaml
-epochs: 20
+data: E:\Fruit\fruit_detection\data\dataset_fruits_detection\data.yaml
+epochs: 50
 time: null
 patience: 100
 batch: 16
@@ -10,9 +10,9 @@ imgsz: 640
 save: true
 save_period: -1
 cache: false
-device: '0'
+device: cpu
 workers: 0
-project: D:\fruit_detection\runs\yolov8s_fruits
+project: E:\Fruit\fruit_detection\runs\yolov8s_fruits
 name: train
 exist_ok: true
 pretrained: true
@@ -107,4 +107,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: botsort.yaml
-save_dir: D:\fruit_detection\runs\yolov8s_fruits\train
+save_dir: E:\Fruit\fruit_detection\runs\yolov8s_fruits\train
