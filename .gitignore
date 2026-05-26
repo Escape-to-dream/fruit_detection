@@ -1,4 +1,4 @@
-# 虚拟环境（元凶！）
+# 虚拟环境
 venv/
 .venv/
 env/
@@ -7,10 +7,32 @@ env/
 # Python 缓存
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # IDE
 .idea/
+.vscode/
+*.swp
+*.swo
 
-# 系统
+# 训练输出
+runs/
+
+# 模型权重（体积太大，不上传 GitHub）
+*.pt
+*.pth
+*.onnx
+*.weights
+
+# 数据集压缩包
+*.zip
+*.tar.gz
+*.rar
+
+# 系统文件
 .DS_Store
 Thumbs.db
+
+# 调试脚本
+test_*.py
